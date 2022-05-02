@@ -1,0 +1,24 @@
+
+table {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 1px;
+    border: solid white;
+    background-color: #734b07;
+}
+
+.square-light {
+    height: 60px;
+    width: 60px;
+    background-color: white;    
+}
+
+.square-dark {
+    height: 60px;
+    width: 60px;
+    background-color: black;
+}
+
+.upside-down {
+    transform: rotate(180deg);
+}
