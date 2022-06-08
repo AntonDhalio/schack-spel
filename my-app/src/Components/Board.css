@@ -1,24 +1,18 @@
 
-table {
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 1px;
-    border: solid white;
-    background-color: #734b07;
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+    grid-template-rows: repeat(8, 100px);
+    background-color: burlywood;
+    height: 800px;
+    width: 800px;
 }
 
-.square-light {
-    height: 60px;
-    width: 60px;
-    background-color: white;    
+
+.whiteSquare {
+    background-color: white;
 }
 
-.square-dark {
-    height: 60px;
-    width: 60px;
+.blackSquare {
     background-color: black;
-}
-
-.upside-down {
-    transform: rotate(180deg);
 }

@@ -1,14 +1,13 @@
-import logo from './logo.svg';
+/* import logo from './logo.svg'; */
 import './App.css';
-import Header from './Components/Header';
 import Board from './Components/Board';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">  
-        <Header />
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <Header />
+        <img src={logo} className="App-logo" alt="logo" /> */}
         <Board />             
       </header>
     </div>
