@@ -1,9 +1,14 @@
 import React from 'react'
 
 const Header = () => {
+
+  const handleClick = () => {
+    console.log('Time to start!');
+  }
+
   return (
       <header>
-          <h1>Schack spel</h1>
+          <button onClick={handleClick}>Start game</button>
       </header>
   )
 }

@@ -1,4 +1,4 @@
-/* import logo from './logo.svg'; */
+import Header from './Components/Header';
 import './App.css';
 import Board from './Components/Board';
 
@@ -6,8 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">  
-        {/* <Header />
-        <img src={logo} className="App-logo" alt="logo" /> */}
+        <Header />
         <Board />             
       </header>
     </div>
