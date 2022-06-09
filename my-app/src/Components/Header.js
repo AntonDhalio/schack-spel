@@ -1,16 +1,21 @@
 import React from 'react'
+import Board from './Board';
+import { useState } from 'react';
 
 const Header = () => {
 
-  const handleClick = () => {
-    console.log('Time to start!');
-  }
+  const [active, setActive] = useState("default");
 
   return (
       <header>
-          <button onClick={handleClick}>Start game</button>
+          <button onClick={() => setActive("active")}>Start game</button>
+          <div>
+            {active === "default"}
+            {active === "active" && <Board />}
+          </div>
       </header>
   )
 }
+
 
 export default Header

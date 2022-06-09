@@ -10,16 +10,15 @@
 
 .whiteSquare {
     background-color: white;
+    
 }
 
 .blackSquare {
     background-color: black;
 }
 
-/* .boardEdgeUpper {
-    display: grid;
-    grid-template-rows: repeat(8, 30px);
-    background-color: burlywood;
-    height: 860px;
-    width: 860px;
-} */
+img {
+    max-width: 100px;
+    max-height: 100px;  
+    align-content: center;  
+}

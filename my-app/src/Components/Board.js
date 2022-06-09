@@ -1,5 +1,6 @@
 import React from 'react'
 import './Board.css'
+import Square from './Square';
 
 const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
 const horizontalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -13,23 +14,15 @@ const Board = () => {
       
       const squareNumber = j + i;
       const squareId = horizontalAxis[i] + verticalAxis[j];
-      if(squareNumber % 2 === 0) {
-        board.push(
-          <div className='whiteSquare' id={squareId}></div>      
-        )
-      }
-      else{
-        board.push(
-          <div className='blackSquare' id={squareId}></div>      
-        )
-      }   
+      
+      board.push(
+      <Square squareNumber={squareNumber} squareId={squareId}/>
+      )
   }
 }
   return (
     <div className="board">{board}</div>
   )
 }
-
-
 
 export default Board
