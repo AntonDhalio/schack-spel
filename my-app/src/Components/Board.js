@@ -9,16 +9,17 @@ const Board = () => {
 
   let board = [];
   
-  for (let j = verticalAxis.length-1; j >= 0; j--) {
-    for (let i = 0; i < horizontalAxis.length; i++){  
+  for (let i = verticalAxis.length-1; i >= 0; i--) {
+    for (let j = 0; j < horizontalAxis.length; j++){  
       
-      const squareNumber = j + i;
+      const squareNumber = i + j;
       const squareId = horizontalAxis[i] + verticalAxis[j];
       
       board.push(
       <Square squareNumber={squareNumber} squareId={squareId}/>
       )
   }
+
 }
   return (
     <div className="board">{board}</div>
