@@ -12,8 +12,8 @@ const Board = () => {
   for (let i = verticalAxis.length-1; i >= 0; i--) {
     for (let j = 0; j < horizontalAxis.length; j++){  
       
-      const squareNumber = i + j;
-      const squareId = horizontalAxis[i] + verticalAxis[j];
+      const squareNumber = j + i-1;
+      const squareId = horizontalAxis[j] + verticalAxis[i];
       
       board.push(
       <Square squareNumber={squareNumber} squareId={squareId}/>

@@ -1,25 +1,34 @@
 import React from 'react'
-import Knight from './Pieces/Knight';
+import AddPiece from './AddPiece';
 
 
 
 export default function Square(props) {
 
-    let isWhite = true;
+    const startingPieces = [
+        'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1',
+        'A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2',
+        'A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7',
+        'A8', 'B8', 'C8', 'D8', 'E8', 'F8', 'G8', 'H8'
+    ]
+    for (let i = 0; i < startingPieces.length; i++) {
+        if (startingPieces[i] === props.squareId) {
 
-    if(props.squareNumber % 2 === 0) {
-        isWhite = true
-        return <div className='whiteSquare' id={props.squareId}></div>                
+            if (props.squareNumber % 2 === 0) {
+                return <div className='whiteSquare' id={props.squareId}><AddPiece squareId={props.squareId}/></div>
+            }
+            else {
+                return <div className='blackSquare' id={props.squareId}><AddPiece squareId={props.squareId}/></div>
+            }
+
+        }
     }
-    else{
-        isWhite = false
-        return <div className='blackSquare' id={props.squareId}><Knight isWhite={isWhite}/></div>          
-    }
-   /*  if(props.squareNumber % 2 === 0) {
-        return <div className='whiteSquare' id={props.squareId}><img src='/Pieces/wp.png' alt='One square of the chessboard'/></div>                
-    }
-    else{
-        return <div className='blackSquare' id={props.squareId}><img src='/Pieces/bk.png' alt='One square of the chessboard'/></div>          
-    } */
+        if (props.squareNumber % 2 === 0) {
+            return <div className='whiteSquare' id={props.squareId}></div>
+        }
+        else {
+            return <div className='blackSquare' id={props.squareId}></div>
+        }
+    
 }
 

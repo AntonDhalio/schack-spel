@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Pawn = (props) => {
-    if(props.isWhite === true){
+    if(props.color === 'White'){
         return (
             <img src='./Pieces/wp.png' alt='A white pawn'></img>
           ) 
