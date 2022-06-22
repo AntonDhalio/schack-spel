@@ -1,10 +1,10 @@
-import React from 'react'
-import Rook from './Pieces/Rook';
+/* import React from 'react'
+import Rook from './Piece';
 import Bishop from './Pieces/Bishop';
 import Knight from './Pieces/Knight';
 import King from './Pieces/King';
 import Queen from './Pieces/Queen';
-import Pawn from './Pieces/Pawn';
+import Piece from './Piece';
 
 const AddPiece = (props) => {
 
@@ -60,12 +60,12 @@ const AddPiece = (props) => {
     }
     else if(props.squareId === 'A2' || props.squareId === 'B2' || props.squareId === 'C2' || props.squareId === 'D2' || props.squareId === 'E2' || props.squareId === 'F2' || props.squareId === 'G2' || props.squareId === 'H2'){
         return (
-            <Pawn color='White'/>
+            <Piece color='White'/>
           )
     }
     else if(props.squareId === 'A7' || props.squareId === 'B7' || props.squareId === 'C7' || props.squareId === 'D7' || props.squareId === 'E7' || props.squareId === 'F7' || props.squareId === 'G7' || props.squareId === 'H7'){
         return (
-            <Pawn color='Black'/>
+            <Piece color='Black'/>
           )
     }
     else{
@@ -74,4 +74,4 @@ const AddPiece = (props) => {
 
 }
 
-export default AddPiece
+export default AddPiece */

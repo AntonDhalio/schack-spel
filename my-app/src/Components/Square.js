@@ -1,5 +1,6 @@
 import React from 'react'
 import AddPiece from './AddPiece';
+import ListPieces from './ListPieces';
 
 
 
@@ -15,10 +16,10 @@ export default function Square(props) {
         if (startingPieces[i] === props.squareId) {
 
             if (props.squareNumber % 2 === 0) {
-                return <div className='whiteSquare' id={props.squareId}><AddPiece squareId={props.squareId}/></div>
+                return <div className='whiteSquare' id={props.squareId}><ListPieces squareId={props.squareId}/></div>
             }
             else {
-                return <div className='blackSquare' id={props.squareId}><AddPiece squareId={props.squareId}/></div>
+                return <div className='blackSquare' id={props.squareId}><ListPieces squareId={props.squareId}/></div>
             }
 
         }
