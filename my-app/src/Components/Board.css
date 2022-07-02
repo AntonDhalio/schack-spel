@@ -20,4 +20,14 @@ img {
     max-width: 100px;
     max-height: 100px;  
     align-content: center;  
+    visibility: visible;
+}
+
+.chessPiece {
+    width: 100px;
+    height: 100px;  
+    align-content: center;  
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
 }

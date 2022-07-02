@@ -1,10 +1,11 @@
 import React from 'react'
-import AddPiece from './AddPiece';
 import ListPieces from './ListPieces';
+import Piece from './Piece';
 
 
 
 export default function Square(props) {
+
 
     const startingPieces = [
         'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1',
