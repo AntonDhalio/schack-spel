@@ -1,19 +1,74 @@
-let position = [0, 0]
-  let observer = null
-
-  function emitChange() {
-    observer(position)
-  }
-
-  export function observe(o) {
-    if(observer) {
-      throw new Error('')
-    }
-    observer = o
-    emitChange()
-  }
-
-  export function movePiece(toX, toY) {
-      position = [toX, toY]
-      emitChange()
-  }
+var pieceRules = {
+  King: {
+    canMoveVertical: true,
+    canMoveHorizontal: true,
+    canMoveDiagonal: true,
+    hasSpecialMovement: false,
+    canMoveThroughPieces: false,
+    specialMovement: null,
+    verticalMovement: 1,
+    horizontalMovement: 1,
+    diagonalMovement: 1,
+    canMoveBackwards: true,
+  },
+  Queen: {
+    canMoveVertical: true,
+    canMoveHorizontal: true,
+    canMoveDiagonal: true,
+    hasSpecialMovement: false,
+    canMoveThroughPieces: false,
+    specialMovement: null,
+    verticalMovement: 7,
+    horizontalMovement: 7,
+    diagonalMovement: 7,
+    canMoveBackwards: true,
+  },
+  Knight: {
+    canMoveVertical: true,
+    canMoveHorizontal: true,
+    canMoveDiagonal: false,
+    hasSpecialMovement: false,
+    canMoveThroughPieces: true,
+    specialMovement: null,
+    verticalMovement: [1, 2], //the knight can first move 2 horizontal/vertical and then 1 horizontal/vertical
+    horizontalMovement: [1, 2],
+    diagonalMovement: null,
+    canMoveBackwards: true,
+  },
+  Bishop: {
+    canMoveVertical: false,
+    canMoveHorizontal: false,
+    canMoveDiagonal: true,
+    hasSpecialMovement: false,
+    canMoveThroughPieces: false,
+    specialMovement: null,
+    verticalMovement: null,
+    horizontalMovement: null,
+    diagonalMovement: 7,
+    canMoveBackwards: true,
+  },
+  Rook: {
+    canMoveVertical: true,
+    canMoveHorizontal: true,
+    canMoveDiagonal: false,
+    hasSpecialMovement: false,
+    canMoveThroughPieces: false,
+    specialMovement: null,
+    verticalMovement: 7,
+    horizontalMovement: 7,
+    diagonalMovement: null,
+    canMoveBackwards: true,
+  },
+  Pawn: {
+    canMoveVertical: true,
+    canMoveHorizontal: false,
+    canMoveDiagonal: true, //if an enemy piece is on a diagonal square
+    hasSpecialMovement: true,
+    canMoveThroughPieces: false,
+    specialMovement: 2,
+    verticalMovement: 1,
+    horizontalMovement: null,
+    diagonalMovement: 1,
+    canMoveBackwards: false,
+  },
+};

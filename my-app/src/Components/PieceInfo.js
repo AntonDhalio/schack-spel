@@ -1,5 +1,10 @@
 import React from "react";
-import Piece from "./Piece";
+
+export function getRelevantPiece(squareId) {
+  let info = PieceInfo(squareId);
+  // console.log(info);
+  return info;
+}
 
 const PieceInfo = (squareId) => {
   //
@@ -230,11 +235,11 @@ const PieceInfo = (squareId) => {
     },
   };
 
-  for (let values of Object.values(dictPieces)) {
-    console.log(values.piece);
-    const pieceInfo = values.piece;
-    if (values.startingPosition === squareId) {
-      return pieceInfo;
+  for (let values of Object.entries(dictPieces)) {
+    if (values[1].startingPosition === squareId) {
+      let value = [values[0], values[1].piece, values[1].img, values[1].alt];
+
+      return value;
     }
   }
 

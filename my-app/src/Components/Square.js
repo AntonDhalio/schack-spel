@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ListPieces from "./PieceInfo";
 import Piece from "./Piece";
-import PieceInfo from "./PieceInfo";
+import { getRelevantPiece } from "./PieceInfo";
 
 const startingPieces = [
   "A1",
@@ -48,12 +47,19 @@ const Square = ({ squareNumber, squareId }) => {
     : (className = "blackSquare");
 
   if (shouldBeOccupied) {
-    occupiedBy = <PieceInfo squareId={squareId} />; //getRelevantPiece();
+    occupiedBy = getRelevantPiece(squareId);
   }
 
   return className ? (
     <div className={className} id={squareId}>
-      {occupiedBy && <button></button>}
+      {occupiedBy && (
+        <Piece
+          id={occupiedBy[0]}
+          piece={occupiedBy[1]}
+          src={occupiedBy[2]}
+          alt={occupiedBy[3]}
+        />
+      )}
     </div>
   ) : (
     <div className="whiteSquare" id={squareId}></div>
