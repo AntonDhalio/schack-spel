@@ -37,7 +37,7 @@ const startingPieces = [
   "H8",
 ];
 
-const Square = ({ squareNumber, squareId }) => {
+const Square = ({ squareNumber, squareId, onClick }) => {
   let occupiedBy = null;
   let className = null;
   const shouldBeOccupied = startingPieces.includes(squareId);
@@ -51,13 +51,14 @@ const Square = ({ squareNumber, squareId }) => {
   }
 
   return className ? (
-    <div className={className} id={squareId}>
+    <div className={className} id={squareId} onClick={onClick}>
       {occupiedBy && (
         <Piece
-          id={occupiedBy[0]}
-          piece={occupiedBy[1]}
-          src={occupiedBy[2]}
-          alt={occupiedBy[3]}
+          id={occupiedBy.id}
+          piece={occupiedBy.pieceType}
+          src={occupiedBy.image}
+          alt={occupiedBy.alt}
+          onClick={onClick}
         />
       )}
     </div>

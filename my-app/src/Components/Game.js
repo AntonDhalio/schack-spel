@@ -1,4 +1,4 @@
-var pieceRules = {
+const pieceRules = {
   King: {
     canMoveVertical: true,
     canMoveHorizontal: true,
@@ -32,6 +32,7 @@ var pieceRules = {
     specialMovement: null,
     verticalMovement: [1, 2], //the knight can first move 2 horizontal/vertical and then 1 horizontal/vertical
     horizontalMovement: [1, 2],
+    firstMovment: 2,
     diagonalMovement: null,
     canMoveBackwards: true,
   },

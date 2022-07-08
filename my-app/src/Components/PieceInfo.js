@@ -9,226 +9,226 @@ export function getRelevantPiece(squareId) {
 const PieceInfo = (squareId) => {
   //
 
-  var dictPieces = {
+  const dictPieces = {
     1: {
-      piece: "Rook",
+      piece: "rook",
       startingPosition: "A1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
     },
 
     2: {
-      piece: "Bishop",
+      piece: "bishop",
       startingPosition: "B1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
     },
 
     3: {
-      piece: "Knight",
+      piece: "knight",
       startingPosition: "C1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
     },
 
     4: {
-      piece: "King",
+      piece: "king",
       startingPosition: "D1",
       img: "./Pieces/wk.png",
       alt: "A white king",
     },
 
     5: {
-      piece: "Queen",
+      piece: "queen",
       startingPosition: "E1",
       img: "./Pieces/wq.png",
       alt: "A white queen",
     },
 
     6: {
-      piece: "Knight",
+      piece: "knight",
       startingPosition: "F1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
     },
 
     7: {
-      piece: "Bishop",
+      piece: "bishop",
       startingPosition: "G1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
     },
 
     8: {
-      piece: "Rook",
+      piece: "rook",
       startingPosition: "H1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
     },
 
     9: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "A2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     10: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "B2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     11: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "C2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     12: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "D2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     13: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "E2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     14: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "F2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     15: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "G2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     16: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "H2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
     },
 
     17: {
-      piece: "Rook",
+      piece: "rook",
       startingPosition: "A8",
       img: "./Pieces/br.png",
       alt: "A black rook",
     },
 
     18: {
-      piece: "Bishop",
+      piece: "bishop",
       startingPosition: "B8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
     },
 
     19: {
-      piece: "Knight",
+      piece: "knight",
       startingPosition: "C8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
     },
 
     20: {
-      piece: "King",
+      piece: "king",
       startingPosition: "D8",
       img: "./Pieces/bk.png",
       alt: "A black king",
     },
 
     21: {
-      piece: "Queen",
+      piece: "queen",
       startingPosition: "E8",
       img: "./Pieces/bq.png",
       alt: "A black queen",
     },
 
     22: {
-      piece: "Knight",
+      piece: "knight",
       startingPosition: "F8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
     },
 
     23: {
-      piece: "Bishop",
+      piece: "bishop",
       startingPosition: "G8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
     },
 
     24: {
-      piece: "Rook",
+      piece: "rook",
       startingPosition: "H8",
       img: "./Pieces/br.png",
       alt: "A black rook",
     },
 
     25: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "A7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     26: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "B7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     27: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "C7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     28: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "D7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     29: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "E7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     30: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "F7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     31: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "G7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
     },
 
     32: {
-      piece: "Pawn",
+      piece: "pawn",
       startingPosition: "H7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
@@ -237,9 +237,15 @@ const PieceInfo = (squareId) => {
 
   for (let values of Object.entries(dictPieces)) {
     if (values[1].startingPosition === squareId) {
-      let value = [values[0], values[1].piece, values[1].img, values[1].alt];
+      // let value = [values[0], values[1].piece, values[1].img, values[1].alt];
 
-      return value;
+      const info = {
+        id: values[0],
+        pieceType: values[1].piece,
+        image: values[1].img,
+        alt: values[1].alt,
+      };
+      return info;
     }
   }
 
