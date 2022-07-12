@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Board.css";
 import Square from "./Square";
+import { getStartingPositions } from "./PieceInfo";
 
 const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
 const horizontalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 let clickedPiece = null;
+let clickedSquare = null;
 let lastColor = null;
 
 const tileChangeBack = () => {
@@ -14,6 +16,8 @@ const tileChangeBack = () => {
   }
 };
 
+const initialState = getStartingPositions();
+
 const Board = () => {
   const [activePiece, setActivePiece] = useState({
     class: null,
@@ -21,27 +25,32 @@ const Board = () => {
     src: null,
     alt: null,
   });
-  const [targetTile, setTargetTile] = useState(null);
+  const [boardState, setBoardState] = useState(initialState);
 
   // lägg till if(clickedpiece) som en useEffect
-
+  // useEffect(() => {
+  //   tileChangeBack();
+  // });
+  console.log(initialState);
   const selectPiece = (e) => {
     const tile = e.target;
-    lastColor = tile.style.backgroundColor;
-    tileChangeBack();
-    // useEffect(() => {
-    //   tileChangeBack();
-    // });
-    e.preventDefault();
-    setActivePiece({
-      class: tile.className,
-      id: tile.id,
-      src: tile.src,
-      alt: tile.alt,
-    });
-    clickedPiece = tile;
-    clickedPiece.style.backgroundColor = "green";
-    console.log(activePiece);
+    if (tile.className.includes("Square")) {
+      clickedSquare = tile;
+      console.log(clickedSquare.id);
+    } else {
+      lastColor = tile.style.backgroundColor;
+      tileChangeBack();
+      setActivePiece({
+        class: tile.className,
+        id: tile.id,
+        src: tile.src,
+        alt: tile.alt,
+      });
+      clickedPiece = tile;
+      clickedPiece.style.backgroundColor = "green";
+      console.log(clickedPiece);
+      console.log(board[0]);
+    }
   };
 
   let board = [];

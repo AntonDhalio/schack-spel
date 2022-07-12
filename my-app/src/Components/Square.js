@@ -58,7 +58,6 @@ const Square = ({ squareNumber, squareId, onClick }) => {
           piece={occupiedBy.pieceType}
           src={occupiedBy.image}
           alt={occupiedBy.alt}
-          onClick={onClick}
         />
       )}
     </div>

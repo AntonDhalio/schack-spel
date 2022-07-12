@@ -5,16 +5,14 @@ export function getRelevantPiece(squareId) {
   // console.log(info);
   return info;
 }
-
-const PieceInfo = (squareId) => {
-  //
-
+export function getStartingPositions() {
   const dictPieces = {
     1: {
       piece: "rook",
       startingPosition: "A1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
+      color: "white",
     },
 
     2: {
@@ -22,6 +20,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "B1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
+      color: "white",
     },
 
     3: {
@@ -29,6 +28,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "C1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
+      color: "white",
     },
 
     4: {
@@ -36,6 +36,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "D1",
       img: "./Pieces/wk.png",
       alt: "A white king",
+      color: "white",
     },
 
     5: {
@@ -43,6 +44,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "E1",
       img: "./Pieces/wq.png",
       alt: "A white queen",
+      color: "white",
     },
 
     6: {
@@ -50,6 +52,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "F1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
+      color: "white",
     },
 
     7: {
@@ -57,6 +60,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "G1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
+      color: "white",
     },
 
     8: {
@@ -64,6 +68,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "H1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
+      color: "white",
     },
 
     9: {
@@ -71,6 +76,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "A2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     10: {
@@ -78,6 +84,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "B2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     11: {
@@ -85,6 +92,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "C2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     12: {
@@ -92,6 +100,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "D2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     13: {
@@ -99,6 +108,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "E2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     14: {
@@ -106,6 +116,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "F2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     15: {
@@ -113,6 +124,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "G2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     16: {
@@ -120,6 +132,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "H2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
+      color: "white",
     },
 
     17: {
@@ -127,6 +140,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "A8",
       img: "./Pieces/br.png",
       alt: "A black rook",
+      color: "black",
     },
 
     18: {
@@ -134,6 +148,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "B8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
+      color: "black",
     },
 
     19: {
@@ -141,6 +156,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "C8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
+      color: "black",
     },
 
     20: {
@@ -148,6 +164,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "D8",
       img: "./Pieces/bk.png",
       alt: "A black king",
+      color: "black",
     },
 
     21: {
@@ -155,6 +172,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "E8",
       img: "./Pieces/bq.png",
       alt: "A black queen",
+      color: "black",
     },
 
     22: {
@@ -162,6 +180,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "F8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
+      color: "black",
     },
 
     23: {
@@ -169,6 +188,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "G8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
+      color: "black",
     },
 
     24: {
@@ -176,6 +196,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "H8",
       img: "./Pieces/br.png",
       alt: "A black rook",
+      color: "black",
     },
 
     25: {
@@ -183,6 +204,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "A7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     26: {
@@ -190,6 +212,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "B7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     27: {
@@ -197,6 +220,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "C7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     28: {
@@ -204,6 +228,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "D7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     29: {
@@ -211,6 +236,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "E7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     30: {
@@ -218,6 +244,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "F7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     31: {
@@ -225,6 +252,7 @@ const PieceInfo = (squareId) => {
       startingPosition: "G7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
 
     32: {
@@ -232,13 +260,16 @@ const PieceInfo = (squareId) => {
       startingPosition: "H7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
+      color: "black",
     },
   };
+  return dictPieces;
+}
 
-  for (let values of Object.entries(dictPieces)) {
+const PieceInfo = (squareId) => {
+  for (let values of Object.entries(getStartingPositions())) {
     if (values[1].startingPosition === squareId) {
       // let value = [values[0], values[1].piece, values[1].img, values[1].alt];
-
       const info = {
         id: values[0],
         pieceType: values[1].piece,
