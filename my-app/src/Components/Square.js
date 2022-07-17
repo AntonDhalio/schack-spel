@@ -37,17 +37,39 @@ const startingPieces = [
   "H8",
 ];
 
-const Square = ({ squareNumber, squareId, onClick }) => {
+const Square = ({
+  squareNumber,
+  squareId,
+  onClick,
+  initialState,
+  currentBoard,
+}) => {
   let occupiedBy = null;
   let className = null;
   const shouldBeOccupied = startingPieces.includes(squareId);
+
+  const getPiecePosition = () => {
+    for (let values of Object.entries(currentBoard)) {
+      if (values[1].startingPosition === squareId) {
+        const info = {
+          id: values[0],
+          pieceType: values[1].piece,
+          image: values[1].img,
+          alt: values[1].alt,
+        };
+        return info;
+      }
+    }
+  };
 
   squareNumber % 2 === 0
     ? (className = "whiteSquare")
     : (className = "blackSquare");
 
-  if (shouldBeOccupied) {
+  if (shouldBeOccupied && initialState) {
     occupiedBy = getRelevantPiece(squareId);
+  } else if (initialState === false) {
+    occupiedBy = getPiecePosition();
   }
 
   return className ? (

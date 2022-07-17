@@ -269,7 +269,6 @@ export function getStartingPositions() {
 const PieceInfo = (squareId) => {
   for (let values of Object.entries(getStartingPositions())) {
     if (values[1].startingPosition === squareId) {
-      // let value = [values[0], values[1].piece, values[1].img, values[1].alt];
       const info = {
         id: values[0],
         pieceType: values[1].piece,

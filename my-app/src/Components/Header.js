@@ -1,21 +1,15 @@
-import React from 'react'
-import Board from './Board';
-import { useState } from 'react';
+import React from "react";
+import Board from "./Board";
 
 const Header = () => {
-
-  const [active, setActive] = useState("default");
-
   return (
-      <header>
-          <button onClick={() => setActive("active")}>Start game</button>
-          <div>
-            {active === "default"}
-            {active === "active" && <Board />}
-          </div>
-      </header>
-  )
-}
+    <header>
+      <h2>Current player: {}</h2>
+      <div>
+        <Board />
+      </div>
+    </header>
+  );
+};
 
-
-export default Header
+export default Header;
