@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./Board.css";
 import Square from "./Square";
 import { getStartingPositions } from "./PieceInfo";
+import Game, { availablePaths } from "./Game";
 
-const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
-const horizontalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
+const horizontalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
+const verticalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 let clickedPiece = null;
 let lastSquareColor = null;
@@ -61,6 +62,12 @@ const Board = () => {
         clickedPiece = tile;
         clickedPiece.style.backgroundColor = "green";
         setIsInitialBoard(false);
+        availablePaths(
+          boardState[tile.id].startingPosition,
+          boardState,
+          pieceColor,
+          tile.className
+        );
       } else if (
         !isCorrectColor(playerTurn, pieceColor) &&
         activePiece !== tile.id &&
@@ -101,10 +108,10 @@ const Board = () => {
 
   let board = [];
 
-  for (var i = verticalAxis.length - 1; i >= 0; i--) {
-    for (var j = 0; j < horizontalAxis.length; j++) {
+  for (var i = horizontalAxis.length - 1; i >= 0; i--) {
+    for (var j = 0; j < verticalAxis.length; j++) {
       const squareNumber = j + i - 1;
-      const squareId = horizontalAxis[j] + verticalAxis[i];
+      const squareId = verticalAxis[j] + horizontalAxis[i];
 
       board.push(
         <Square
