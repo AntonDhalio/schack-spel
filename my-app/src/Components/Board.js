@@ -47,6 +47,8 @@ const Board = () => {
   const [isInitialBoard, setIsInitialBoard] = useState(true);
   const [playerTurn, setPlayerTurn] = useState("white");
 
+  let board = [];
+
   const selectPiece = (e) => {
     const tile = e.target;
 
@@ -62,12 +64,13 @@ const Board = () => {
         clickedPiece = tile;
         clickedPiece.style.backgroundColor = "green";
         setIsInitialBoard(false);
-        availablePaths(
-          boardState[tile.id].startingPosition,
+        var test = availablePaths(
+          boardState[tile.id].position,
           boardState,
           pieceColor,
           tile.className
         );
+        console.log(test);
       } else if (
         !isCorrectColor(playerTurn, pieceColor) &&
         activePiece !== tile.id &&
@@ -82,8 +85,8 @@ const Board = () => {
   const changePosition = (tile) => {
     let copyPiece = boardState[activePiece];
     !tile.className.includes("Square")
-      ? (copyPiece.startingPosition = boardState[tile.id].startingPosition)
-      : (copyPiece.startingPosition = tile.id);
+      ? (copyPiece.position = boardState[tile.id].position)
+      : (copyPiece.position = tile.id);
     if (shouldRemove) {
       removePiece(tile);
     }
@@ -105,8 +108,6 @@ const Board = () => {
       copyBoardState,
     }));
   };
-
-  let board = [];
 
   for (var i = horizontalAxis.length - 1; i >= 0; i--) {
     for (var j = 0; j < verticalAxis.length; j++) {

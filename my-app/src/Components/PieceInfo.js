@@ -9,7 +9,7 @@ export function getStartingPositions() {
   const dictPieces = {
     1: {
       piece: "rook",
-      startingPosition: "A1",
+      position: "A1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
       color: "white",
@@ -17,7 +17,7 @@ export function getStartingPositions() {
 
     2: {
       piece: "bishop",
-      startingPosition: "B1",
+      position: "B1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
       color: "white",
@@ -25,7 +25,7 @@ export function getStartingPositions() {
 
     3: {
       piece: "knight",
-      startingPosition: "C1",
+      position: "C1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
       color: "white",
@@ -33,7 +33,7 @@ export function getStartingPositions() {
 
     4: {
       piece: "king",
-      startingPosition: "D1",
+      position: "D1",
       img: "./Pieces/wk.png",
       alt: "A white king",
       color: "white",
@@ -41,7 +41,7 @@ export function getStartingPositions() {
 
     5: {
       piece: "queen",
-      startingPosition: "E1",
+      position: "E1",
       img: "./Pieces/wq.png",
       alt: "A white queen",
       color: "white",
@@ -49,7 +49,7 @@ export function getStartingPositions() {
 
     6: {
       piece: "knight",
-      startingPosition: "F1",
+      position: "F1",
       img: "./Pieces/wn.png",
       alt: "A white knight",
       color: "white",
@@ -57,7 +57,7 @@ export function getStartingPositions() {
 
     7: {
       piece: "bishop",
-      startingPosition: "G1",
+      position: "G1",
       img: "./Pieces/wb.png",
       alt: "A white bishop",
       color: "white",
@@ -65,7 +65,7 @@ export function getStartingPositions() {
 
     8: {
       piece: "rook",
-      startingPosition: "H1",
+      position: "H1",
       img: "./Pieces/wr.png",
       alt: "A white rook",
       color: "white",
@@ -73,7 +73,7 @@ export function getStartingPositions() {
 
     9: {
       piece: "pawn",
-      startingPosition: "A2",
+      position: "A2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -81,7 +81,7 @@ export function getStartingPositions() {
 
     10: {
       piece: "pawn",
-      startingPosition: "B2",
+      position: "B2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -89,7 +89,7 @@ export function getStartingPositions() {
 
     11: {
       piece: "pawn",
-      startingPosition: "C2",
+      position: "C2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -97,7 +97,7 @@ export function getStartingPositions() {
 
     12: {
       piece: "pawn",
-      startingPosition: "D2",
+      position: "D2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -105,7 +105,7 @@ export function getStartingPositions() {
 
     13: {
       piece: "pawn",
-      startingPosition: "E2",
+      position: "E2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -113,7 +113,7 @@ export function getStartingPositions() {
 
     14: {
       piece: "pawn",
-      startingPosition: "F2",
+      position: "F2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -121,7 +121,7 @@ export function getStartingPositions() {
 
     15: {
       piece: "pawn",
-      startingPosition: "G2",
+      position: "G2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -129,7 +129,7 @@ export function getStartingPositions() {
 
     16: {
       piece: "pawn",
-      startingPosition: "H2",
+      position: "H2",
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -137,7 +137,7 @@ export function getStartingPositions() {
 
     17: {
       piece: "rook",
-      startingPosition: "A8",
+      position: "A8",
       img: "./Pieces/br.png",
       alt: "A black rook",
       color: "black",
@@ -145,7 +145,7 @@ export function getStartingPositions() {
 
     18: {
       piece: "bishop",
-      startingPosition: "B8",
+      position: "B8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
       color: "black",
@@ -153,7 +153,7 @@ export function getStartingPositions() {
 
     19: {
       piece: "knight",
-      startingPosition: "C8",
+      position: "C8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
       color: "black",
@@ -161,7 +161,7 @@ export function getStartingPositions() {
 
     20: {
       piece: "king",
-      startingPosition: "D8",
+      position: "D8",
       img: "./Pieces/bk.png",
       alt: "A black king",
       color: "black",
@@ -169,7 +169,7 @@ export function getStartingPositions() {
 
     21: {
       piece: "queen",
-      startingPosition: "E8",
+      position: "E8",
       img: "./Pieces/bq.png",
       alt: "A black queen",
       color: "black",
@@ -177,7 +177,7 @@ export function getStartingPositions() {
 
     22: {
       piece: "knight",
-      startingPosition: "F8",
+      position: "F8",
       img: "./Pieces/bn.png",
       alt: "A black knight",
       color: "black",
@@ -185,7 +185,7 @@ export function getStartingPositions() {
 
     23: {
       piece: "bishop",
-      startingPosition: "G8",
+      position: "G8",
       img: "./Pieces/bb.png",
       alt: "A black bishop",
       color: "black",
@@ -193,7 +193,7 @@ export function getStartingPositions() {
 
     24: {
       piece: "rook",
-      startingPosition: "H8",
+      position: "H8",
       img: "./Pieces/br.png",
       alt: "A black rook",
       color: "black",
@@ -201,7 +201,7 @@ export function getStartingPositions() {
 
     25: {
       piece: "pawn",
-      startingPosition: "A7",
+      position: "A7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -209,7 +209,7 @@ export function getStartingPositions() {
 
     26: {
       piece: "pawn",
-      startingPosition: "B7",
+      position: "B7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -217,7 +217,7 @@ export function getStartingPositions() {
 
     27: {
       piece: "pawn",
-      startingPosition: "C7",
+      position: "C7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -225,7 +225,7 @@ export function getStartingPositions() {
 
     28: {
       piece: "pawn",
-      startingPosition: "D7",
+      position: "D7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -233,7 +233,7 @@ export function getStartingPositions() {
 
     29: {
       piece: "pawn",
-      startingPosition: "E7",
+      position: "E7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -241,7 +241,7 @@ export function getStartingPositions() {
 
     30: {
       piece: "pawn",
-      startingPosition: "F7",
+      position: "F7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -249,7 +249,7 @@ export function getStartingPositions() {
 
     31: {
       piece: "pawn",
-      startingPosition: "G7",
+      position: "G7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -257,7 +257,7 @@ export function getStartingPositions() {
 
     32: {
       piece: "pawn",
-      startingPosition: "H7",
+      position: "H7",
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -268,7 +268,7 @@ export function getStartingPositions() {
 
 const PieceInfo = (squareId) => {
   for (let values of Object.entries(getStartingPositions())) {
-    if (values[1].startingPosition === squareId) {
+    if (values[1].position === squareId) {
       const info = {
         id: values[0],
         pieceType: values[1].piece,

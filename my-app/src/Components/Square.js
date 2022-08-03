@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Piece from "./Piece";
 import { getRelevantPiece } from "./PieceInfo";
 
@@ -40,6 +40,7 @@ const startingPieces = [
 const Square = ({
   squareNumber,
   squareId,
+  vectorPosition,
   onClick,
   initialState,
   currentBoard,
@@ -50,7 +51,7 @@ const Square = ({
 
   const getPiecePosition = () => {
     for (let values of Object.entries(currentBoard)) {
-      if (values[1].startingPosition === squareId) {
+      if (values[1].position === squareId) {
         const info = {
           id: values[0],
           pieceType: values[1].piece,
