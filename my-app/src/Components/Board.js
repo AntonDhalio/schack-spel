@@ -39,6 +39,18 @@ const isCorrectColor = (playerTurn, pieceColor) => {
   }
 };
 
+const getVector = (x, y) => {
+  class Vector2 {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  const vector = new Vector2(x, y);
+  return vector;
+};
+
 const initialState = getStartingPositions();
 
 const Board = () => {
@@ -48,6 +60,14 @@ const Board = () => {
   const [playerTurn, setPlayerTurn] = useState("white");
 
   let board = [];
+  let dict = [];
+
+  class Vector2 {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
 
   const selectPiece = (e) => {
     const tile = e.target;
@@ -114,6 +134,22 @@ const Board = () => {
       const squareNumber = j + i - 1;
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
+      let vector = getVector(i, j);
+      console.log(vector);
+
+      dict.push({
+        vector: (
+          <Square
+            key={squareId}
+            id={squareId}
+            squareNumber={squareNumber}
+            squareId={squareId}
+            onClick={selectPiece}
+            currentBoard={boardState}
+            initialState={isInitialBoard}
+          />
+        ),
+      });
       board.push(
         <Square
           key={squareId}
