@@ -135,10 +135,9 @@ const Board = () => {
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
       let vector = getVector(i, j);
-      console.log(vector);
 
       dict.push({
-        vector: (
+        [vector]: (
           <Square
             key={squareId}
             id={squareId}
