@@ -39,14 +39,14 @@ const isCorrectColor = (playerTurn, pieceColor) => {
   }
 };
 
-const getVector = (x, y) => {
-  class Vector2 {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-    }
+class Vector2 {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
   }
+}
 
+const getVector = (x, y) => {
   const vector = new Vector2(x, y);
   return vector;
 };
@@ -60,7 +60,7 @@ const Board = () => {
   const [playerTurn, setPlayerTurn] = useState("white");
 
   let board = [];
-  let dict = [];
+  let dict = {};
 
   class Vector2 {
     constructor(x, y) {
@@ -134,21 +134,20 @@ const Board = () => {
       const squareNumber = j + i - 1;
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
-      let vector = getVector(i, j);
+      let vector = JSON.stringify(getVector(i, j));
 
-      dict.push({
-        [vector]: (
-          <Square
-            key={squareId}
-            id={squareId}
-            squareNumber={squareNumber}
-            squareId={squareId}
-            onClick={selectPiece}
-            currentBoard={boardState}
-            initialState={isInitialBoard}
-          />
-        ),
-      });
+      dict[vector] = (
+        <Square
+          key={squareId}
+          id={squareId}
+          squareNumber={squareNumber}
+          squareId={squareId}
+          onClick={selectPiece}
+          currentBoard={boardState}
+          initialState={isInitialBoard}
+        />
+      );
+
       board.push(
         <Square
           key={squareId}
@@ -162,7 +161,10 @@ const Board = () => {
       );
     }
   }
+  console.log(dict);
 
+  const test = JSON.parse('{"x":0,"y":6}');
+  console.log(test.x);
   return (
     <h2>
       Current player: {playerTurn.charAt(0).toUpperCase() + playerTurn.slice(1)}
