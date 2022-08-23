@@ -40,7 +40,6 @@ const startingPieces = [
 const Square = ({
   squareNumber,
   squareId,
-  vectorPosition,
   onClick,
   initialState,
   currentBoard,

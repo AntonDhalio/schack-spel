@@ -2,6 +2,26 @@ import React from "react";
 
 const horizontalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
+const xAxis = {
+  0: "A",
+  1: "B",
+  2: "C",
+  3: "D",
+  4: "E",
+  5: "F",
+  6: "G",
+  7: "H",
+};
+const yAxis = {
+  0: "1",
+  1: "2",
+  2: "3",
+  3: "4",
+  4: "5",
+  5: "6",
+  6: "7",
+  7: "8",
+};
 
 export function pieceRules() {
   const pieceRules = {
@@ -110,33 +130,29 @@ function isSquareOccupiedByOpponent(square, boardState, color) {
   return false;
 }
 
-export function getNewSquare(square, isVertical) {
-  //which one is active, how many steps you can go horizontally
-  let newSquare = null;
+export function moveUpp(square, numberOfSquaresMoved, boardState) {
+  let vector = JSON.parse(boardState[square].vector);
   let nextSquare;
-  let verticalPlacement = verticalAxis.indexOf(square.charAt(1)) + 1;
-  let horizontalPlacement = horizontalAxis.indexOf(square.charAt(0)) + 1;
-  if (isVertical) {
-    nextSquare = `${square.charAt(0)}${verticalPlacement + 1}`;
+  let horizontalPlacement = vector.x;
+  let verticalPlacement = vector.y + numberOfSquaresMoved;
+  if (verticalPlacement >= 0 && verticalPlacement < 8) {
+    nextSquare = xAxis[horizontalPlacement] + yAxis[verticalPlacement];
+  } else {
+    nextSquare = null;
   }
-
-  // if (x !== null) {
-  //   horizontalPlacement = horizontalPlacement + x;
-  // }
-  // if (
-  //   verticalPlacement >= 0 &&
-  //   verticalPlacement < 9 &&
-  //   horizontalPlacement > 0 &&
-  //   horizontalPlacement < 9
-  // ) {
-  //   verticalPlacement === 8
-  //     ? (newSquare =
-  //         verticalAxis[verticalPlacement - 1] + horizontalPlacement.toString())
-  //     : (newSquare =
-  //         verticalAxis[verticalPlacement] + horizontalPlacement.toString());
-
   return nextSquare;
-  //}
+}
+export function moveDown(square, numberOfSquaresMoved, boardState) {
+  let vector = JSON.parse(boardState[square].vector);
+  let nextSquare;
+  let horizontalPlacement = vector.x;
+  let verticalPlacement = vector.y - numberOfSquaresMoved;
+  if (verticalPlacement >= 0 && verticalPlacement < 8) {
+    nextSquare = xAxis[horizontalPlacement] + yAxis[verticalPlacement];
+  } else {
+    nextSquare = null;
+  }
+  return nextSquare;
 }
 
 export function getNewSquareDiagonal(square, xy) {
@@ -165,34 +181,47 @@ export function getNewSquareDiagonal(square, xy) {
   return newSquare;
 }
 
-export function availablePaths(square, boardState, color, piece) {
+export function availablePaths(tileId, boardState, color, piece) {
   let availableSquares = [];
-  let pathBlocked = false;
-  let squareId = square; // A5
+  let isBlocked = false;
+  let squareId = null;
   const movement = getMovementRules(piece);
   //if (movement[1].canMoveBackwards) {
   if (movement[1].canMoveVertical) {
-    for (let i = 0; i < movement[1].verticalMovement; i++) {
-      squareId = getNewSquare(squareId, true);
-      let isBlocked;
+    for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
+      if (!isBlocked) {
+        squareId = moveUpp(tileId, i, boardState);
+      }
       if (isSquareOccupied(squareId, boardState)) {
         isBlocked = true;
-      } else {
+      } else if (squareId !== null) {
         availableSquares.push(squareId);
       }
-
-      // if (!pathBlocked) {
-      //   if (isSquareOccupied(newPosition, boardState)) {
-      //     if (isSquareOccupiedByOpponent(newPosition, boardState, color)) {
-      //       availableSquares.push(newPosition);
-      //       pathBlocked = true;
-      //     }
-      //     pathBlocked = true;
-      //   } else {
-      //     availableSquares.push(newPosition);
-      //   }
-      // }
     }
+    isBlocked = false;
+    for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
+      if (!isBlocked) {
+        squareId = moveDown(tileId, i, boardState);
+      }
+      if (isSquareOccupied(squareId, boardState)) {
+        isBlocked = true;
+      } else if (squareId !== null) {
+        availableSquares.push(squareId);
+      }
+    }
+    isBlocked = false;
+
+    // if (!pathBlocked) {
+    //   if (isSquareOccupied(newPosition, boardState)) {
+    //     if (isSquareOccupiedByOpponent(newPosition, boardState, color)) {
+    //       availableSquares.push(newPosition);
+    //       pathBlocked = true;
+    //     }
+    //     pathBlocked = true;
+    //   } else {
+    //     availableSquares.push(newPosition);
+    //   }
+    // }
 
     // for (let i = 0; i >= -movement[1].verticalMovement; i--) {
     //   let position = getNewSquare(squareId, i, null);

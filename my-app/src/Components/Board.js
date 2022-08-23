@@ -39,6 +39,14 @@ const isCorrectColor = (playerTurn, pieceColor) => {
   }
 };
 
+const fetchVector = (dict, id) => {
+  for (let [key, values] of Object.entries(dict)) {
+    if (values.key === id) {
+      return key;
+    }
+  }
+};
+
 class Vector2 {
   constructor(x, y) {
     this.x = x;
@@ -62,13 +70,6 @@ const Board = () => {
   let board = [];
   let dict = {};
 
-  class Vector2 {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-    }
-  }
-
   const selectPiece = (e) => {
     const tile = e.target;
 
@@ -79,17 +80,19 @@ const Board = () => {
       lastSquareColor = tile.style.backgroundColor;
       const pieceColor = boardState[tile.id].color;
       if (isCorrectColor(playerTurn, pieceColor)) {
+        // console.log(tile, boardState);
         tileChangeBack();
         setActivePiece(tile.id);
         clickedPiece = tile;
         clickedPiece.style.backgroundColor = "green";
         setIsInitialBoard(false);
         var test = availablePaths(
-          boardState[tile.id].position,
+          tile.id,
           boardState,
           pieceColor,
           tile.className
         );
+        // console.log(boardState);
         console.log(test);
       } else if (
         !isCorrectColor(playerTurn, pieceColor) &&
@@ -102,11 +105,14 @@ const Board = () => {
     }
   };
 
+  // (copyPiece.vector = boardState[tile.id].vector)
   const changePosition = (tile) => {
     let copyPiece = boardState[activePiece];
+    let vectorValue = fetchVector(dict, tile.id);
     !tile.className.includes("Square")
-      ? (copyPiece.position = boardState[tile.id].position)
-      : (copyPiece.position = tile.id);
+      ? (copyPiece.position = boardState[tile.id].position) &&
+        (copyPiece.vector = boardState[tile.id].vector)
+      : (copyPiece.position = tile.id) && (copyPiece.vector = vectorValue);
     if (shouldRemove) {
       removePiece(tile);
     }
@@ -134,7 +140,7 @@ const Board = () => {
       const squareNumber = j + i - 1;
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
-      let vector = JSON.stringify(getVector(i, j));
+      let vector = JSON.stringify(getVector(j, i));
 
       dict[vector] = (
         <Square
@@ -147,24 +153,20 @@ const Board = () => {
           initialState={isInitialBoard}
         />
       );
-
-      board.push(
-        <Square
-          key={squareId}
-          id={squareId}
-          squareNumber={squareNumber}
-          squareId={squareId}
-          onClick={selectPiece}
-          currentBoard={boardState}
-          initialState={isInitialBoard}
-        />
-      );
     }
   }
-  console.log(dict);
 
-  const test = JSON.parse('{"x":0,"y":6}');
-  console.log(test.x);
+  // const test = JSON.parse('{"x":0,"y":6}');
+  // console.log(test.x);
+
+  for (let squares of Object.values(dict)) {
+    board.push(squares);
+    // const test2 = JSON.parse(keys);
+    // console.log(test2.x);
+  }
+  // console.log(dict);
+  // console.log(board);
+
   return (
     <h2>
       Current player: {playerTurn.charAt(0).toUpperCase() + playerTurn.slice(1)}
