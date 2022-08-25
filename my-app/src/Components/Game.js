@@ -194,6 +194,7 @@ export function availablePaths(tileId, boardState, color, piece) {
       }
       if (isSquareOccupied(squareId, boardState)) {
         isBlocked = true;
+        isSquareOccupiedByOpponent(squareId, boardState, color);
       } else if (squareId !== null) {
         availableSquares.push(squareId);
       }
