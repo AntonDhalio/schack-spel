@@ -2,7 +2,6 @@ import React from "react";
 
 export function getRelevantPiece(squareId) {
   let info = PieceInfo(squareId);
-  // console.log(info);
   return info;
 }
 export function getStartingPositions() {

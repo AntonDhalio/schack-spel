@@ -1,5 +1,3 @@
-// import React from "react";
-
 const xAxis = {
   0: "A",
   1: "B",
@@ -415,11 +413,3 @@ export function availablePaths(tileId, boardState, color, piece) {
   const noDuplicates = [...new Set(availableSquares)];
   return noDuplicates;
 }
-
-const Game = (piece, color, square, boardState) => {
-  const movement = getMovementRules(piece);
-
-  return movement;
-};
-
-export default Game;

@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Board.css";
 import Square from "./Square";
 import { getStartingPositions } from "./PieceInfo";
-import Game, { availablePaths } from "./Game";
+import { availablePaths } from "./Game";
 
 const horizontalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
 const verticalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
-
-let clickedPiece = null;
-let lastSquareColor = null;
 let shouldRemove = null;
-
-// const tileChangeBack = () => {
-//   if (clickedPiece) {
-//     clickedPiece.style.backgroundColor = lastSquareColor;
-//   }
-// };
 
 const changePlayer = (boardState, activePiece) => {
   let piece = boardState[activePiece];
@@ -74,7 +65,6 @@ const Board = () => {
       changePosition(tile, possibleMoves);
       setPossibleMoves([]);
     } else if (tile.src) {
-      lastSquareColor = tile.style.backgroundColor;
       const pieceColor = boardState[tile.id].color;
       if (isCorrectColor(playerTurn, pieceColor)) {
         setActivePiece(tile.id);
@@ -130,17 +120,6 @@ const Board = () => {
       copyBoardState,
     }));
   };
-
-  // const saveColors = (possibleMoves, board) => {
-  //   board.forEach((e) => {
-  //     console.log(e);
-  //     possibleMoves.forEach((p) => {
-  //       // if ((e.id = p)) {
-  //       //   colors[e.id] = e.backgroundColor;
-  //       // }
-  //     });
-  //   });
-  // };
 
   for (var i = horizontalAxis.length - 1; i >= 0; i--) {
     for (var j = 0; j < verticalAxis.length; j++) {
