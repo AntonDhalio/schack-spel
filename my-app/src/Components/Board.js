@@ -43,7 +43,7 @@ class Vector2 {
 
 export const createVector = (x, y) => {
   const vector = new Vector2(x, y);
-  return vector;
+  return JSON.stringify(vector);
 };
 
 const initialState = getStartingPositions();
@@ -85,7 +85,7 @@ const Board = () => {
       const squareNumber = j + i - 1;
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
-      let vector = JSON.stringify(createVector(j, i));
+      let vector = createVector(j, i);
 
       tilesIncludingVector[vector] = (
         <Square
