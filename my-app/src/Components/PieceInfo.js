@@ -1,4 +1,5 @@
 import React from "react";
+import { createVector } from "./Board";
 
 export function getRelevantPiece(squareId) {
   let info = PieceInfo(squareId);
@@ -9,7 +10,7 @@ export function getStartingPositions() {
     1: {
       piece: "rook",
       position: "A1",
-      vector: '{"x":0,"y":0}',
+      vector: createVector(0, 0),
       img: "./Pieces/wr.png",
       alt: "A white rook",
       color: "white",
@@ -18,7 +19,7 @@ export function getStartingPositions() {
     2: {
       piece: "bishop",
       position: "B1",
-      vector: '{"x":1,"y":0}',
+      vector: createVector(1, 0),
       img: "./Pieces/wb.png",
       alt: "A white bishop",
       color: "white",
@@ -27,7 +28,7 @@ export function getStartingPositions() {
     3: {
       piece: "knight",
       position: "C1",
-      vector: '{"x":2,"y":0}',
+      vector: createVector(2, 0),
       img: "./Pieces/wn.png",
       alt: "A white knight",
       color: "white",
@@ -36,7 +37,7 @@ export function getStartingPositions() {
     4: {
       piece: "king",
       position: "D1",
-      vector: '{"x":3,"y":0}',
+      vector: createVector(3, 0),
       img: "./Pieces/wk.png",
       alt: "A white king",
       color: "white",
@@ -45,7 +46,7 @@ export function getStartingPositions() {
     5: {
       piece: "queen",
       position: "E1",
-      vector: '{"x":4,"y":0}',
+      vector: createVector(4, 0),
       img: "./Pieces/wq.png",
       alt: "A white queen",
       color: "white",
@@ -54,7 +55,7 @@ export function getStartingPositions() {
     6: {
       piece: "knight",
       position: "F1",
-      vector: '{"x":5,"y":0}',
+      vector: createVector(5, 0),
       img: "./Pieces/wn.png",
       alt: "A white knight",
       color: "white",
@@ -63,7 +64,7 @@ export function getStartingPositions() {
     7: {
       piece: "bishop",
       position: "G1",
-      vector: '{"x":6,"y":0}',
+      vector: createVector(6, 0),
       img: "./Pieces/wb.png",
       alt: "A white bishop",
       color: "white",
@@ -72,7 +73,7 @@ export function getStartingPositions() {
     8: {
       piece: "rook",
       position: "H1",
-      vector: '{"x":7,"y":0}',
+      vector: createVector(7, 0),
       img: "./Pieces/wr.png",
       alt: "A white rook",
       color: "white",
@@ -81,7 +82,7 @@ export function getStartingPositions() {
     9: {
       piece: "pawn",
       position: "A2",
-      vector: '{"x":0,"y":1}',
+      vector: createVector(0, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -90,7 +91,7 @@ export function getStartingPositions() {
     10: {
       piece: "pawn",
       position: "B2",
-      vector: '{"x":1,"y":1}',
+      vector: createVector(1, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -99,7 +100,7 @@ export function getStartingPositions() {
     11: {
       piece: "pawn",
       position: "C2",
-      vector: '{"x":2,"y":1}',
+      vector: createVector(2, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -108,7 +109,7 @@ export function getStartingPositions() {
     12: {
       piece: "pawn",
       position: "D2",
-      vector: '{"x":3,"y":1}',
+      vector: createVector(3, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -117,7 +118,7 @@ export function getStartingPositions() {
     13: {
       piece: "pawn",
       position: "E2",
-      vector: '{"x":4,"y":1}',
+      vector: createVector(4, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -126,7 +127,7 @@ export function getStartingPositions() {
     14: {
       piece: "pawn",
       position: "F2",
-      vector: '{"x":5,"y":1}',
+      vector: createVector(5, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -135,7 +136,7 @@ export function getStartingPositions() {
     15: {
       piece: "pawn",
       position: "G2",
-      vector: '{"x":6,"y":1}',
+      vector: createVector(6, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -144,7 +145,7 @@ export function getStartingPositions() {
     16: {
       piece: "pawn",
       position: "H2",
-      vector: '{"x":7,"y":1}',
+      vector: createVector(7, 1),
       img: "./Pieces/wp.png",
       alt: "A white pawn",
       color: "white",
@@ -153,7 +154,7 @@ export function getStartingPositions() {
     17: {
       piece: "rook",
       position: "A8",
-      vector: '{"x":0,"y":7}',
+      vector: createVector(0, 7),
       img: "./Pieces/br.png",
       alt: "A black rook",
       color: "black",
@@ -162,7 +163,7 @@ export function getStartingPositions() {
     18: {
       piece: "bishop",
       position: "B8",
-      vector: '{"x":1,"y":7}',
+      vector: createVector(1, 7),
       img: "./Pieces/bb.png",
       alt: "A black bishop",
       color: "black",
@@ -171,7 +172,7 @@ export function getStartingPositions() {
     19: {
       piece: "knight",
       position: "C8",
-      vector: '{"x":2,"y":7}',
+      vector: createVector(2, 7),
       img: "./Pieces/bn.png",
       alt: "A black knight",
       color: "black",
@@ -180,7 +181,7 @@ export function getStartingPositions() {
     20: {
       piece: "king",
       position: "D8",
-      vector: '{"x":3,"y":7}',
+      vector: createVector(3, 7),
       img: "./Pieces/bk.png",
       alt: "A black king",
       color: "black",
@@ -189,7 +190,7 @@ export function getStartingPositions() {
     21: {
       piece: "queen",
       position: "E8",
-      vector: '{"x":4,"y":7}',
+      vector: createVector(4, 7),
       img: "./Pieces/bq.png",
       alt: "A black queen",
       color: "black",
@@ -198,7 +199,7 @@ export function getStartingPositions() {
     22: {
       piece: "knight",
       position: "F8",
-      vector: '{"x":5,"y":7}',
+      vector: createVector(5, 7),
       img: "./Pieces/bn.png",
       alt: "A black knight",
       color: "black",
@@ -207,7 +208,7 @@ export function getStartingPositions() {
     23: {
       piece: "bishop",
       position: "G8",
-      vector: '{"x":6,"y":7}',
+      vector: createVector(6, 7),
       img: "./Pieces/bb.png",
       alt: "A black bishop",
       color: "black",
@@ -216,7 +217,7 @@ export function getStartingPositions() {
     24: {
       piece: "rook",
       position: "H8",
-      vector: '{"x":7,"y":7}',
+      vector: createVector(7, 7),
       img: "./Pieces/br.png",
       alt: "A black rook",
       color: "black",
@@ -225,7 +226,7 @@ export function getStartingPositions() {
     25: {
       piece: "pawn",
       position: "A7",
-      vector: '{"x":0,"y":6}',
+      vector: createVector(0, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -234,7 +235,7 @@ export function getStartingPositions() {
     26: {
       piece: "pawn",
       position: "B7",
-      vector: '{"x":1,"y":6}',
+      vector: createVector(1, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -243,7 +244,7 @@ export function getStartingPositions() {
     27: {
       piece: "pawn",
       position: "C7",
-      vector: '{"x":2,"y":6}',
+      vector: createVector(2, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -252,7 +253,7 @@ export function getStartingPositions() {
     28: {
       piece: "pawn",
       position: "D7",
-      vector: '{"x":3,"y":6}',
+      vector: createVector(3, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -261,7 +262,7 @@ export function getStartingPositions() {
     29: {
       piece: "pawn",
       position: "E7",
-      vector: '{"x":4,"y":6}',
+      vector: createVector(4, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -270,7 +271,7 @@ export function getStartingPositions() {
     30: {
       piece: "pawn",
       position: "F7",
-      vector: '{"x":5,"y":6}',
+      vector: createVector(5, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -279,7 +280,7 @@ export function getStartingPositions() {
     31: {
       piece: "pawn",
       position: "G7",
-      vector: '{"x":6,"y":6}',
+      vector: createVector(6, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
@@ -288,7 +289,7 @@ export function getStartingPositions() {
     32: {
       piece: "pawn",
       position: "H7",
-      vector: '{"x":7,"y":6}',
+      vector: createVector(7, 6),
       img: "./Pieces/bp.png",
       alt: "A black pawn",
       color: "black",
