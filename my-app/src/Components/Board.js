@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import "./Board.css";
+import React, { memo, useState } from "react";
+import "../CSS/Board.css";
 import Square from "./Square";
-import { getStartingPositions } from "./PieceInfo";
 import { availablePaths } from "./Game";
+import { Vector2 } from "../Types/Vector2";
+import { Colors } from "../Enums/Colors";
+import { dictPieces } from "../Data/PieceInformation";
 
 const horizontalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
 const verticalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -10,16 +12,16 @@ let shouldRemove = null;
 
 const changePlayer = (boardState, activePiece) => {
   let piece = boardState[activePiece];
-  if (piece.color === "white") {
+  if (piece.color === Colors.White) {
     return true;
   }
   return false;
 };
 
 const isCorrectColor = (playerTurn, pieceColor) => {
-  if (playerTurn === "white" && pieceColor === "white") {
+  if (playerTurn === Colors.White && pieceColor === Colors.White) {
     return true;
-  } else if (playerTurn === "black" && pieceColor === "black") {
+  } else if (playerTurn === Colors.Black && pieceColor === Colors.Black) {
     return true;
   } else {
     return false;
@@ -29,30 +31,18 @@ const isCorrectColor = (playerTurn, pieceColor) => {
 const fetchVector = (dict, id) => {
   for (let [key, values] of Object.entries(dict)) {
     if (values.key === id) {
-      return key;
+      return JSON.parse(key);
     }
   }
 };
 
-class Vector2 {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
-export const createVector = (x, y) => {
-  const vector = new Vector2(x, y);
-  return JSON.stringify(vector);
-};
-
-const initialState = getStartingPositions();
+const initialState = dictPieces;
 
 const Board = () => {
   const [activePiece, setActivePiece] = useState(null);
   const [boardState, setBoardState] = useState(initialState);
   const [isInitialBoardPositions, setIsInitialBoardPositions] = useState(true);
-  const [playerTurn, setPlayerTurn] = useState("white");
+  const [playerTurn, setPlayerTurn] = useState(Colors.White);
   const [possibleMoves, setPossibleMoves] = useState([]);
 
   let boardTiles = [];
@@ -85,8 +75,7 @@ const Board = () => {
       const squareNumber = j + i - 1;
       const squareId = verticalAxis[j] + horizontalAxis[i];
 
-      let vector = createVector(j, i);
-
+      let vector = JSON.stringify(new Vector2(j, i));
       tilesIncludingVector[vector] = (
         <Square
           key={squareId}
@@ -129,8 +118,8 @@ const Board = () => {
         }));
         setActivePiece(null);
         changePlayer(boardState, activePiece)
-          ? setPlayerTurn("black")
-          : setPlayerTurn("white");
+          ? setPlayerTurn(Colors.Black)
+          : setPlayerTurn(Colors.White);
       }
     }
   };

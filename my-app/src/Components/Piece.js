@@ -1,14 +1,7 @@
 import React from "react";
 
-const Piece = (props) => {
-  return (
-    <img
-      className={props.piece}
-      id={props.id}
-      src={props.src}
-      alt={props.alt}
-    ></img>
-  );
+const Piece = ({ piece, id, src, alt }) => {
+  return <img className={piece} id={id} src={src} alt={alt}></img>;
 };
 
 export default Piece;

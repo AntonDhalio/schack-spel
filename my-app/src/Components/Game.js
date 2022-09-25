@@ -1,3 +1,5 @@
+import { Colors } from "../Enums/Colors";
+
 const xAxis = {
   0: "A",
   1: "B",
@@ -140,63 +142,63 @@ function isNextSquareValid(horizontalPlacement, verticalPlacement) {
   return nextSquare;
 }
 function moveUpp(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x;
   let verticalPlacement = vector.y + numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveDown(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x;
   let verticalPlacement = vector.y - numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveLeft(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x - numberOfSquaresMoved;
   let verticalPlacement = vector.y;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveRight(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x + numberOfSquaresMoved;
   let verticalPlacement = vector.y;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveDiagonalUR(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x - numberOfSquaresMoved;
   let verticalPlacement = vector.y + numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveDiagonalUL(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x + numberOfSquaresMoved;
   let verticalPlacement = vector.y + numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveDiagonalDR(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x + numberOfSquaresMoved;
   let verticalPlacement = vector.y - numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function moveDiagonalDL(square, numberOfSquaresMoved, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  let vector = boardState[square].vector;
   let horizontalPlacement = vector.x - numberOfSquaresMoved;
   let verticalPlacement = vector.y - numberOfSquaresMoved;
   let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
   return nextSquare;
 }
 function specialMoveKnight(square, boardState) {
-  let vector = JSON.parse(boardState[square].vector);
+  const vector = boardState[square].vector;
   let nextSquare = [];
   let horizontalPlacement = vector.x + 2;
   let verticalPlacement = vector.y + 1;
@@ -243,7 +245,7 @@ export function availablePaths(tileId, boardState, color, piece) {
       }
     });
   } else if (piece === "pawn") {
-    if (color === "white") {
+    if (color === Colors.White) {
       squareId = moveDiagonalUR(tileId, 1, boardState);
       if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
         availableSquares.push(squareId);
@@ -265,7 +267,7 @@ export function availablePaths(tileId, boardState, color, piece) {
           availableSquares.push(squareId);
         }
       }
-    } else if (color === "black") {
+    } else if (color === Colors.Black) {
       squareId = moveDiagonalDR(tileId, 1, boardState);
       if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
         availableSquares.push(squareId);
