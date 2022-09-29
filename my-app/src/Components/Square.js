@@ -16,20 +16,6 @@ const Square = ({
   let isActive = null;
   const shouldBeOccupied = initialOccupiedSquares.includes(squareId);
 
-  const getPiecePosition = () => {
-    for (let values of Object.entries(currentBoard)) {
-      if (values[1].position === squareId) {
-        const info = {
-          id: values[0],
-          pieceType: values[1].piece,
-          image: values[1].img,
-          alt: values[1].alt,
-        };
-        return info;
-      }
-    }
-  };
-
   possibleMoves.forEach((e) => {
     if (e === squareId) {
       isActive = true;
@@ -40,12 +26,10 @@ const Square = ({
     ? (className = "whiteSquare")
     : (className = "blackSquare");
 
-  if (shouldBeOccupied && initialState) {
-    occupiedBy = getRelevantPiece(squareId);
-  } else if (initialState === false) {
-    occupiedBy = getPiecePosition();
+  if ((shouldBeOccupied && initialState) || !initialState) {
+    occupiedBy = getRelevantPiece(squareId, currentBoard);
   }
-  return className ? (
+  return (
     <div
       className={!isActive ? className : className + "Active"}
       id={squareId}
@@ -60,8 +44,6 @@ const Square = ({
         />
       )}
     </div>
-  ) : (
-    <div className="whiteSquare" id={squareId}></div>
   );
 };
 

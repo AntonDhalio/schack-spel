@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { useState } from "react";
 import "../CSS/Board.css";
 import Square from "./Square";
 import { availablePaths } from "./Game";

@@ -1,412 +1,355 @@
+import { xAxis, yAxis } from "../Data/BoardAxis";
+import { pieceRules, knightMovement } from "../Data/PieceRules";
 import { Colors } from "../Enums/Colors";
+import { SquareOccupiedBy } from "../Enums/SquareOccupiedBy";
 
-const xAxis = {
-  0: "A",
-  1: "B",
-  2: "C",
-  3: "D",
-  4: "E",
-  5: "F",
-  6: "G",
-  7: "H",
-};
-const yAxis = {
-  0: "1",
-  1: "2",
-  2: "3",
-  3: "4",
-  4: "5",
-  5: "6",
-  6: "7",
-  7: "8",
-};
-
-export function pieceRules() {
-  const pieceRules = {
-    king: {
-      canMoveVertical: true,
-      canMoveHorizontal: true,
-      canMoveDiagonal: true,
-      hasSpecialMovement: false,
-      canMoveThroughPieces: false,
-      specialMovement: null,
-      verticalMovement: 1,
-      horizontalMovement: 1,
-      diagonalMovement: 1,
-      canMoveBackwards: true,
-    },
-    queen: {
-      canMoveVertical: true,
-      canMoveHorizontal: true,
-      canMoveDiagonal: true,
-      hasSpecialMovement: false,
-      canMoveThroughPieces: false,
-      specialMovement: null,
-      verticalMovement: 7,
-      horizontalMovement: 7,
-      diagonalMovement: 7,
-      canMoveBackwards: true,
-    },
-    knight: {
-      canMoveVertical: true,
-      canMoveHorizontal: true,
-      canMoveDiagonal: false,
-      hasSpecialMovement: false,
-      canMoveThroughPieces: true,
-      specialMovement: null,
-      verticalMovement: 1, //the knight can first move 2 horizontal/vertical and then 1 horizontal/vertical
-      verticalMovement2: 2,
-      horizontalMovement: 1,
-      horizontalMovement2: 2,
-      firstMovment: 2,
-      diagonalMovement: null,
-      canMoveBackwards: true,
-    },
-    bishop: {
-      canMoveVertical: false,
-      canMoveHorizontal: false,
-      canMoveDiagonal: true,
-      hasSpecialMovement: false,
-      canMoveThroughPieces: false,
-      specialMovement: null,
-      verticalMovement: null,
-      horizontalMovement: null,
-      diagonalMovement: 7,
-      canMoveBackwards: true,
-    },
-    rook: {
-      canMoveVertical: true,
-      canMoveHorizontal: true,
-      canMoveDiagonal: false,
-      hasSpecialMovement: false,
-      canMoveThroughPieces: false,
-      specialMovement: null,
-      verticalMovement: 7,
-      horizontalMovement: 7,
-      diagonalMovement: null,
-      canMoveBackwards: true,
-    },
-    pawn: {
-      canMoveVertical: true,
-      canMoveHorizontal: false,
-      canMoveDiagonal: true, //if an enemy piece is on a diagonal square
-      hasSpecialMovement: true,
-      canMoveThroughPieces: false,
-      specialMovement: 2,
-      verticalMovement: 1,
-      horizontalMovement: null,
-      diagonalMovement: 1,
-      canMoveBackwards: false,
-    },
-  };
-  return pieceRules;
+function getMovementRules(piece) {
+  return Object.entries(pieceRules).find((x) => x[0] === piece);
 }
 
-export function getMovementRules(piece, square) {
-  for (let values of Object.entries(pieceRules())) {
-    if (values[0] === piece) {
-      return values;
-    }
+function isSquareOccupied(square, pieceStateList, color) {
+  const nextTile = Object.values(pieceStateList).find(
+    (x) => x.position === square
+  );
+
+  if (Object.values(pieceStateList).some((x) => x.position === square)) {
+    return Object.values(pieceStateList).some((x) =>
+      x.position.includes(square)
+    ) && nextTile.color === color
+      ? SquareOccupiedBy.Player
+      : SquareOccupiedBy.Opponent;
+  } else {
+    return SquareOccupiedBy.None;
   }
 }
 
-function isSquareOccupied(square, boardState) {
-  for (let value of Object.entries(boardState)) {
-    if (square === value[1].position) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function isSquareOccupiedByOpponent(square, boardState, color) {
-  for (let values of Object.entries(boardState)) {
-    if (square === values[1].position && values[1].color !== color) {
-      return true;
-    }
-  }
-  return false;
-}
-function isNextSquareValid(horizontalPlacement, verticalPlacement) {
-  let nextSquare;
+function getNextSquare(horizontalPlacement, verticalPlacement) {
   if (
     horizontalPlacement >= 0 &&
     horizontalPlacement < 8 &&
     verticalPlacement >= 0 &&
     verticalPlacement < 8
   ) {
-    nextSquare = xAxis[horizontalPlacement] + yAxis[verticalPlacement];
-  } else {
-    nextSquare = null;
+    return xAxis[horizontalPlacement] + yAxis[verticalPlacement];
   }
-  return nextSquare;
+  return null;
 }
-function moveUpp(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x;
-  let verticalPlacement = vector.y + numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+
+function getPiecePosition(currentSquare, boardState) {
+  return boardState[currentSquare].vector;
 }
-function moveDown(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x;
-  let verticalPlacement = vector.y - numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+
+function moveUp(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  const verticalPlacement = piecePosition.y + numberOfSquaresMoved;
+  return getNextSquare(piecePosition.x, verticalPlacement);
 }
-function moveLeft(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x - numberOfSquaresMoved;
-  let verticalPlacement = vector.y;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveDown(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
+  return getNextSquare(piecePosition.x, verticalPlacement);
 }
-function moveRight(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x + numberOfSquaresMoved;
-  let verticalPlacement = vector.y;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveLeft(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, piecePosition.y);
 }
-function moveDiagonalUR(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x - numberOfSquaresMoved;
-  let verticalPlacement = vector.y + numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveRight(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, piecePosition.y);
 }
-function moveDiagonalUL(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x + numberOfSquaresMoved;
-  let verticalPlacement = vector.y + numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveDiagonalUR(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
+  let verticalPlacement = piecePosition.y + numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, verticalPlacement);
 }
-function moveDiagonalDR(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x + numberOfSquaresMoved;
-  let verticalPlacement = vector.y - numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveDiagonalUL(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
+  let verticalPlacement = piecePosition.y + numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, verticalPlacement);
 }
-function moveDiagonalDL(square, numberOfSquaresMoved, boardState) {
-  let vector = boardState[square].vector;
-  let horizontalPlacement = vector.x - numberOfSquaresMoved;
-  let verticalPlacement = vector.y - numberOfSquaresMoved;
-  let nextSquare = isNextSquareValid(horizontalPlacement, verticalPlacement);
-  return nextSquare;
+function moveDiagonalDR(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
+  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, verticalPlacement);
 }
-function specialMoveKnight(square, boardState) {
-  const vector = boardState[square].vector;
+function moveDiagonalDL(currentSquare, numberOfSquaresMoved, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
+  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
+  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
+  return getNextSquare(horizontalPlacement, verticalPlacement);
+}
+
+function specialKnightMoves(currentSquare, boardState) {
+  const piecePosition = getPiecePosition(currentSquare, boardState);
   let nextSquare = [];
-  let horizontalPlacement = vector.x + 2;
-  let verticalPlacement = vector.y + 1;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x + 2;
-  verticalPlacement = vector.y - 1;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x - 2;
-  verticalPlacement = vector.y - 1;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x - 2;
-  verticalPlacement = vector.y + 1;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x - 1;
-  verticalPlacement = vector.y + 2;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x + 1;
-  verticalPlacement = vector.y + 2;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x - 1;
-  verticalPlacement = vector.y - 2;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
-  horizontalPlacement = vector.x + 1;
-  verticalPlacement = vector.y - 2;
-  nextSquare.push(isNextSquareValid(horizontalPlacement, verticalPlacement));
+
+  knightMovement.forEach((move) => {
+    nextSquare.push(
+      getNextSquare(piecePosition.x + move.x, piecePosition.y + move.y)
+    );
+  });
   return nextSquare;
 }
 
-export function availablePaths(tileId, boardState, color, piece) {
+export function availablePaths(
+  currentSquareId,
+  boardState,
+  currentPlayerColor,
+  pieceName
+) {
   let availableSquares = [];
   let isBlocked = false;
-  let squareId = null;
-  const movement = getMovementRules(piece);
-  if (piece === "knight") {
-    let knightArray = specialMoveKnight(tileId, boardState);
+  let newPiecePosition = null;
+  const movement = getMovementRules(pieceName);
+
+  if (pieceName === "knight") {
+    const knightArray = specialKnightMoves(currentSquareId, boardState);
     knightArray.forEach((e) => {
-      if (isSquareOccupied(e, boardState)) {
-        isBlocked = true;
-        if (isSquareOccupiedByOpponent(e, boardState, color)) {
-          availableSquares.push(e);
-        }
-      } else if (e !== null) {
+      if (
+        isSquareOccupied(e, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
         availableSquares.push(e);
       }
     });
-  } else if (piece === "pawn") {
-    if (color === Colors.White) {
-      squareId = moveDiagonalUR(tileId, 1, boardState);
-      if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-        availableSquares.push(squareId);
+  } else if (pieceName === "pawn") {
+    if (currentPlayerColor === Colors.White) {
+      newPiecePosition = moveDiagonalUR(currentSquareId, 1, boardState);
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        SquareOccupiedBy.Opponent
+      ) {
+        availableSquares.push(newPiecePosition);
       }
-      squareId = moveDiagonalUL(tileId, 1, boardState);
-      if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-        availableSquares.push(squareId);
+      newPiecePosition = moveDiagonalUL(currentSquareId, 1, boardState);
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        SquareOccupiedBy.Opponent
+      ) {
+        availableSquares.push(newPiecePosition);
       }
-      if (boardState[tileId].position.includes("2")) {
+      if (boardState[currentSquareId].position.includes("2")) {
         for (let i = 1; i < 3; i++) {
-          squareId = moveUpp(tileId, i, boardState);
-          if (!isSquareOccupied(squareId, boardState)) {
-            availableSquares.push(squareId);
+          newPiecePosition = moveUp(currentSquareId, i, boardState);
+          if (
+            isSquareOccupied(
+              newPiecePosition,
+              boardState,
+              currentPlayerColor
+            ) === SquareOccupiedBy.None &&
+            !isBlocked
+          ) {
+            availableSquares.push(newPiecePosition);
+          } else {
+            isBlocked = true;
           }
         }
+        isBlocked = false;
       } else {
-        squareId = moveUpp(tileId, 1, boardState);
-        if (!isSquareOccupied(squareId, boardState)) {
-          availableSquares.push(squareId);
+        newPiecePosition = moveUp(currentSquareId, 1, boardState);
+        if (
+          isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+          SquareOccupiedBy.None
+        ) {
+          availableSquares.push(newPiecePosition);
         }
       }
-    } else if (color === Colors.Black) {
-      squareId = moveDiagonalDR(tileId, 1, boardState);
-      if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-        availableSquares.push(squareId);
+    } else if (currentPlayerColor === Colors.Black) {
+      newPiecePosition = moveDiagonalDR(currentSquareId, 1, boardState);
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        SquareOccupiedBy.Opponent
+      ) {
+        availableSquares.push(newPiecePosition);
       }
-      squareId = moveDiagonalDL(tileId, 1, boardState);
-      if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-        availableSquares.push(squareId);
+      newPiecePosition = moveDiagonalDL(currentSquareId, 1, boardState);
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        SquareOccupiedBy.Opponent
+      ) {
+        availableSquares.push(newPiecePosition);
       }
-      if (boardState[tileId].position.includes("7")) {
+      if (boardState[currentSquareId].position.includes("7")) {
         for (let i = 1; i < 3; i++) {
-          squareId = moveDown(tileId, i, boardState);
-          if (!isSquareOccupied(squareId, boardState)) {
-            availableSquares.push(squareId);
+          newPiecePosition = moveDown(currentSquareId, i, boardState);
+          if (
+            isSquareOccupied(
+              newPiecePosition,
+              boardState,
+              currentPlayerColor
+            ) === SquareOccupiedBy.None &&
+            !isBlocked
+          ) {
+            availableSquares.push(newPiecePosition);
+          } else {
+            isBlocked = true;
           }
         }
+        isBlocked = false;
       } else {
-        squareId = moveDown(tileId, 1, boardState);
-        if (!isSquareOccupied(squareId, boardState)) {
-          availableSquares.push(squareId);
+        newPiecePosition = moveDown(currentSquareId, 1, boardState);
+        if (
+          isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+          SquareOccupiedBy.None
+        ) {
+          availableSquares.push(newPiecePosition);
         }
       }
     }
   } else {
     for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveUpp(tileId, i, boardState);
+        newPiecePosition = moveUp(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
 
     isBlocked = false;
     for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveDown(tileId, i, boardState);
+        newPiecePosition = moveDown(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].horizontalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveLeft(tileId, i, boardState);
+        newPiecePosition = moveLeft(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].horizontalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveRight(tileId, i, boardState);
+        newPiecePosition = moveRight(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveDiagonalUR(tileId, i, boardState);
+        newPiecePosition = moveDiagonalUR(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveDiagonalUL(tileId, i, boardState);
+        newPiecePosition = moveDiagonalUL(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveDiagonalDL(tileId, i, boardState);
+        newPiecePosition = moveDiagonalDL(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
       if (!isBlocked) {
-        squareId = moveDiagonalDR(tileId, i, boardState);
+        newPiecePosition = moveDiagonalDR(currentSquareId, i, boardState);
       }
-      if (isSquareOccupied(squareId, boardState)) {
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
         isBlocked = true;
-        if (isSquareOccupiedByOpponent(squareId, boardState, color)) {
-          availableSquares.push(squareId);
-        }
-      } else if (squareId !== null) {
-        availableSquares.push(squareId);
+      }
+      if (
+        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
       }
     }
     isBlocked = false;

@@ -1,11 +1,5 @@
-import { dictPieces } from "../Data/PieceInformation";
-
-export function getRelevantPiece(squareId) {
-  return PieceInfo(squareId);
-}
-
-const PieceInfo = (squareId) => {
-  for (let values of Object.entries(dictPieces)) {
+export const getRelevantPiece = (squareId, piecePositions) => {
+  for (let values of Object.entries(piecePositions)) {
     if (values[1].position === squareId) {
       const info = {
         id: values[0],
