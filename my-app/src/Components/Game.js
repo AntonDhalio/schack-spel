@@ -7,7 +7,7 @@ function getMovementRules(piece) {
   return Object.entries(pieceRules).find((x) => x[0] === piece);
 }
 
-function isSquareOccupied(square, pieceStateList, color) {
+function squareIsOccupiedBy(square, pieceStateList, color) {
   const nextTile = Object.values(pieceStateList).find(
     (x) => x.position === square
   );
@@ -18,9 +18,8 @@ function isSquareOccupied(square, pieceStateList, color) {
     ) && nextTile.color === color
       ? SquareOccupiedBy.Player
       : SquareOccupiedBy.Opponent;
-  } else {
-    return SquareOccupiedBy.None;
   }
+  return SquareOccupiedBy.None;
 }
 
 function getNextSquare(horizontalPlacement, verticalPlacement) {
@@ -111,7 +110,7 @@ export function availablePaths(
     const knightArray = specialKnightMoves(currentSquareId, boardState);
     knightArray.forEach((e) => {
       if (
-        isSquareOccupied(e, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(e, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(e);
@@ -121,14 +120,14 @@ export function availablePaths(
     if (currentPlayerColor === Colors.White) {
       newPiecePosition = moveDiagonalUR(currentSquareId, 1, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) ===
         SquareOccupiedBy.Opponent
       ) {
         availableSquares.push(newPiecePosition);
       }
       newPiecePosition = moveDiagonalUL(currentSquareId, 1, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) ===
         SquareOccupiedBy.Opponent
       ) {
         availableSquares.push(newPiecePosition);
@@ -137,24 +136,32 @@ export function availablePaths(
         for (let i = 1; i < 3; i++) {
           newPiecePosition = moveUp(currentSquareId, i, boardState);
           if (
-            isSquareOccupied(
+            squareIsOccupiedBy(
               newPiecePosition,
               boardState,
               currentPlayerColor
-            ) === SquareOccupiedBy.None &&
-            !isBlocked
+            ) === SquareOccupiedBy.None
           ) {
             availableSquares.push(newPiecePosition);
-          } else {
-            isBlocked = true;
+          }
+          if (
+            squareIsOccupiedBy(
+              newPiecePosition,
+              boardState,
+              currentPlayerColor
+            ) !== SquareOccupiedBy.None
+          ) {
+            break;
           }
         }
-        isBlocked = false;
       } else {
         newPiecePosition = moveUp(currentSquareId, 1, boardState);
         if (
-          isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
-          SquareOccupiedBy.None
+          squareIsOccupiedBy(
+            newPiecePosition,
+            boardState,
+            currentPlayerColor
+          ) === SquareOccupiedBy.None
         ) {
           availableSquares.push(newPiecePosition);
         }
@@ -162,14 +169,14 @@ export function availablePaths(
     } else if (currentPlayerColor === Colors.Black) {
       newPiecePosition = moveDiagonalDR(currentSquareId, 1, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) ===
         SquareOccupiedBy.Opponent
       ) {
         availableSquares.push(newPiecePosition);
       }
       newPiecePosition = moveDiagonalDL(currentSquareId, 1, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) ===
         SquareOccupiedBy.Opponent
       ) {
         availableSquares.push(newPiecePosition);
@@ -178,24 +185,32 @@ export function availablePaths(
         for (let i = 1; i < 3; i++) {
           newPiecePosition = moveDown(currentSquareId, i, boardState);
           if (
-            isSquareOccupied(
+            squareIsOccupiedBy(
               newPiecePosition,
               boardState,
               currentPlayerColor
-            ) === SquareOccupiedBy.None &&
-            !isBlocked
+            ) === SquareOccupiedBy.None
           ) {
             availableSquares.push(newPiecePosition);
-          } else {
-            isBlocked = true;
+          }
+          if (
+            squareIsOccupiedBy(
+              newPiecePosition,
+              boardState,
+              currentPlayerColor
+            ) !== SquareOccupiedBy.None
+          ) {
+            break;
           }
         }
-        isBlocked = false;
       } else {
         newPiecePosition = moveDown(currentSquareId, 1, boardState);
         if (
-          isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) ===
-          SquareOccupiedBy.None
+          squareIsOccupiedBy(
+            newPiecePosition,
+            boardState,
+            currentPlayerColor
+          ) === SquareOccupiedBy.None
         ) {
           availableSquares.push(newPiecePosition);
         }
@@ -203,156 +218,131 @@ export function availablePaths(
     }
   } else {
     for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveUp(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveUp(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
 
-    isBlocked = false;
     for (let i = 1; i < movement[1].verticalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveDown(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveDown(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
-    isBlocked = false;
+    for (let i = 1; i < movement[1].horizontalMovement + 1; i++) {
+      newPiecePosition = moveLeft(currentSquareId, i, boardState);
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.Player
+      ) {
+        availableSquares.push(newPiecePosition);
+      }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
+    }
 
     for (let i = 1; i < movement[1].horizontalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveLeft(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveRight(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
-    }
-    isBlocked = false;
-
-    for (let i = 1; i < movement[1].horizontalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveRight(currentSquareId, i, boardState);
-      }
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.None
       ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.Player
-      ) {
-        availableSquares.push(newPiecePosition);
+        break;
       }
     }
-    isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveDiagonalUR(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveDiagonalUR(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
-    isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveDiagonalUL(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveDiagonalUL(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
-    isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveDiagonalDL(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveDiagonalDL(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
-    isBlocked = false;
 
     for (let i = 1; i < movement[1].diagonalMovement + 1; i++) {
-      if (!isBlocked) {
-        newPiecePosition = moveDiagonalDR(currentSquareId, i, boardState);
-      }
+      newPiecePosition = moveDiagonalDR(currentSquareId, i, boardState);
       if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
-        SquareOccupiedBy.None
-      ) {
-        isBlocked = true;
-      }
-      if (
-        isSquareOccupied(newPiecePosition, boardState, currentPlayerColor) !==
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
         SquareOccupiedBy.Player
       ) {
         availableSquares.push(newPiecePosition);
       }
+      if (
+        squareIsOccupiedBy(newPiecePosition, boardState, currentPlayerColor) !==
+        SquareOccupiedBy.None
+      ) {
+        break;
+      }
     }
-    isBlocked = false;
   }
 
   const noDuplicates = [...new Set(availableSquares)];
