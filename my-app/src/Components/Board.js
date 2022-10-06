@@ -5,9 +5,8 @@ import { availablePaths } from "./Game";
 import { Vector2 } from "../Types/Vector2";
 import { Colors } from "../Enums/Colors";
 import { dictPieces } from "../Data/PieceInformation";
+import { xAxis, yAxis } from "../Data/BoardAxis";
 
-const horizontalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
-const verticalAxis = ["A", "B", "C", "D", "E", "F", "G", "H"];
 let shouldRemove = null;
 
 const changePlayer = (boardState, activePiece) => {
@@ -36,11 +35,9 @@ const fetchVector = (dict, id) => {
   }
 };
 
-const initialState = dictPieces;
-
 const Board = () => {
   const [activePiece, setActivePiece] = useState(null);
-  const [boardState, setBoardState] = useState(initialState);
+  const [boardState, setBoardState] = useState(dictPieces);
   const [isInitialBoardPositions, setIsInitialBoardPositions] = useState(true);
   const [playerTurn, setPlayerTurn] = useState(Colors.White);
   const [possibleMoves, setPossibleMoves] = useState([]);
@@ -70,10 +67,10 @@ const Board = () => {
     }
   };
 
-  for (var i = horizontalAxis.length - 1; i >= 0; i--) {
-    for (var j = 0; j < verticalAxis.length; j++) {
+  for (var i = Object.keys(yAxis).length - 1; i >= 0; i--) {
+    for (var j = 0; j < Object.keys(xAxis).length; j++) {
       const squareNumber = j + i - 1;
-      const squareId = verticalAxis[j] + horizontalAxis[i];
+      const squareId = xAxis[j] + yAxis[i];
 
       let vector = JSON.stringify(new Vector2(j, i));
       tilesIncludingVector[vector] = (

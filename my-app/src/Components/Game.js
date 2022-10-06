@@ -1,7 +1,17 @@
-import { xAxis, yAxis } from "../Data/BoardAxis";
-import { pieceRules, knightMovement } from "../Data/PieceRules";
+import { pieceRules } from "../Data/PieceRules";
 import { Colors } from "../Enums/Colors";
 import { SquareOccupiedBy } from "../Enums/SquareOccupiedBy";
+import {
+  moveDiagonalDL,
+  moveDiagonalDR,
+  moveDiagonalUL,
+  moveDiagonalUR,
+  moveDown,
+  moveLeft,
+  moveRight,
+  moveUp,
+  specialKnightMoves,
+} from "../Functions/MovementLogic";
 
 function getMovementRules(piece) {
   return Object.entries(pieceRules).find((x) => x[0] === piece);
@@ -22,79 +32,6 @@ function squareIsOccupiedBy(square, pieceStateList, color) {
   return SquareOccupiedBy.None;
 }
 
-function getNextSquare(horizontalPlacement, verticalPlacement) {
-  if (
-    horizontalPlacement >= 0 &&
-    horizontalPlacement < 8 &&
-    verticalPlacement >= 0 &&
-    verticalPlacement < 8
-  ) {
-    return xAxis[horizontalPlacement] + yAxis[verticalPlacement];
-  }
-  return null;
-}
-
-function getPiecePosition(currentSquare, boardState) {
-  return boardState[currentSquare].vector;
-}
-
-function moveUp(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  const verticalPlacement = piecePosition.y + numberOfSquaresMoved;
-  return getNextSquare(piecePosition.x, verticalPlacement);
-}
-function moveDown(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
-  return getNextSquare(piecePosition.x, verticalPlacement);
-}
-function moveLeft(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, piecePosition.y);
-}
-function moveRight(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, piecePosition.y);
-}
-function moveDiagonalUR(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
-  let verticalPlacement = piecePosition.y + numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, verticalPlacement);
-}
-function moveDiagonalUL(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
-  let verticalPlacement = piecePosition.y + numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, verticalPlacement);
-}
-function moveDiagonalDR(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x + numberOfSquaresMoved;
-  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, verticalPlacement);
-}
-function moveDiagonalDL(currentSquare, numberOfSquaresMoved, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let horizontalPlacement = piecePosition.x - numberOfSquaresMoved;
-  let verticalPlacement = piecePosition.y - numberOfSquaresMoved;
-  return getNextSquare(horizontalPlacement, verticalPlacement);
-}
-
-function specialKnightMoves(currentSquare, boardState) {
-  const piecePosition = getPiecePosition(currentSquare, boardState);
-  let nextSquare = [];
-
-  knightMovement.forEach((move) => {
-    nextSquare.push(
-      getNextSquare(piecePosition.x + move.x, piecePosition.y + move.y)
-    );
-  });
-  return nextSquare;
-}
-
 export function availablePaths(
   currentSquareId,
   boardState,
@@ -102,7 +39,6 @@ export function availablePaths(
   pieceName
 ) {
   let availableSquares = [];
-  let isBlocked = false;
   let newPiecePosition = null;
   const movement = getMovementRules(pieceName);
 
