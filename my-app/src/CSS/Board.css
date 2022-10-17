@@ -1,0 +1,119 @@
+
+@media (min-width: 920px)
+{
+    .board {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: repeat(8, 75px);
+    grid-template-rows: repeat(8, 75px);
+    height: 600px;
+    width: 600px;
+}
+
+.whiteSquare {
+    background-color: white;
+    border: 2px;
+}
+
+.blackSquare {
+    background-color: black;
+}
+
+.whiteSquareActive{
+    background-color: green;
+    -webkit-animation: fadeinout 3s linear infinite;
+    animation: fadeinout 3s linear infinite;
+} 
+
+.blackSquareActive{
+    
+    background-color: green;
+    -webkit-animation: fadeinout 3s linear infinite;
+    animation: fadeinout 3s linear infinite;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+} 
+
+img {
+    max-width: 75px;
+    max-height: 75px;  
+    align-content: center;  
+    visibility: visible;
+}
+
+.Pawn.Rook.Bishop.Knight.King.Queen {
+    width: 90px;
+    height: 90px;  
+    align-content: center;  
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90px;
+}
+}
+@media (max-width: 919px)
+{
+    .board {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: repeat(8, 75px);
+    grid-template-rows: repeat(8, 75px);
+    height: 600px;
+    width: 600px;
+}
+
+.whiteSquare {
+    background-color: white;
+    border: 2px;
+}
+
+.blackSquare {
+    background-color: black;
+}
+
+.whiteSquareActive{
+    background-color: green;
+    -webkit-animation: fadeinout 3s linear infinite;
+    animation: fadeinout 3s linear infinite;
+} 
+
+.blackSquareActive{
+    
+    background-color: green;
+    -webkit-animation: fadeinout 3s linear infinite;
+    animation: fadeinout 3s linear infinite;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+} 
+
+img {
+    max-width: 75px;
+    max-height: 75px;  
+    align-content: center;  
+    visibility: visible;
+}
+
+.Pawn.Rook.Bishop.Knight.King.Queen {
+    width: 75px;
+    height: 75px;  
+    align-content: center;  
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
+}
+}
