@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/shack-spel/static/css/main.2cb16bfc.css",
+    "main.js": "/shack-spel/static/js/main.38db0fb3.js",
+    "static/js/787.28cb0dcd.chunk.js": "/shack-spel/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/shack-spel/index.html",
+    "main.2cb16bfc.css.map": "/shack-spel/static/css/main.2cb16bfc.css.map",
+    "main.38db0fb3.js.map": "/shack-spel/static/js/main.38db0fb3.js.map",
+    "787.28cb0dcd.chunk.js.map": "/shack-spel/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2cb16bfc.css",
+    "static/js/main.38db0fb3.js"
+  ]
+}
